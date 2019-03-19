@@ -32,7 +32,7 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-eks?ref=0.2.0"
+  source = "github.com/radepal/kentrikos-terraform-aws-eks?ref=0cf3a017539a27412d679bfface311465f305e42"
 
   cluster_prefix            = "${local.cluster_name}"
   region                    = "${var.region}"
