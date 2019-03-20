@@ -47,6 +47,12 @@ variable "k8s_private_subnets" {
   type        = "list"
 }
 
+variable "k8s_public_subnets" {
+  description = "List of public subnets (matching AZs) where to deploy the cluster (required if existing VPC is used)"
+  type        = "list"
+  default     = []
+}
+
 variable "k8s_node_count" {
   description = "Number of worker nodes in Kubernetes cluster"
   default     = "1"
@@ -84,4 +90,30 @@ variable "k8s_aws_ssh_keypair_name" {
 variable "k8s_linux_distro" {
   description = "Linux distribution for K8s cluster instances (supported values: debian, amzn2)"
   default     = "debian"
+}
+
+variable "k8s_enable_cluster_autoscaling" {
+  description = "Enable cluster autoscaling (vertical/node scaling)"
+  default     = true
+}
+
+variable "k8s_enable_pod_autoscaling" {
+  description = "Enable cluster horizontal pod autoscaling"
+  default     = true
+}
+
+variable "k8s_protect_cluster_from_scale_in" {
+  description = "Protect the cluster from scale-in (Only valid if cluster autoscaling is enabled)"
+  default     = false
+}
+
+variable "k8s_install_helm" {
+  description = "Install helm in the cluster"
+  default     = true
+}
+
+variable "k8s_allowed_worker_ssh_cidrs" {
+  description = "List of CIDRs to allow SSH access into the cluster nodes"
+  type        = "list"
+  default     = []
 }
