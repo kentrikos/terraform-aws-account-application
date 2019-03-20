@@ -38,7 +38,7 @@ module "kubernetes_cluster_application" {
   region                        = "${var.region}"
   vpc_id                        = "${var.vpc_id != "" ? var.vpc_id : module.vpc.vpc_id}"
   private_subnets               = "${var.k8s_private_subnets}"
-  private_subnets               = "${var.k8s_public_subnets}"
+  public_subnets                = "${var.k8s_public_subnets}"
   desired_worker_nodes          = "${var.k8s_node_count}"
   worker_node_instance_type     = "${var.k8s_node_instance_type}"
   key_name                      = "${var.k8s_aws_ssh_keypair_name}"
