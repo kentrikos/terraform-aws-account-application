@@ -32,15 +32,21 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-eks?ref=0.2.0"
+  source = "github.com/kentrikos/terraform-aws-eks?ref=0.2.2"
 
-  cluster_prefix            = "${local.cluster_name}"
-  region                    = "${var.region}"
-  vpc_id                    = "${var.vpc_id != "" ? var.vpc_id : module.vpc.vpc_id}"
-  private_subnets           = "${var.k8s_private_subnets}"
-  desired_worker_nodes      = "${var.k8s_node_count}"
-  worker_node_instance_type = "${var.k8s_node_instance_type}"
-  key_name                  = "${var.k8s_aws_ssh_keypair_name}"
+  cluster_prefix                = "${local.cluster_name}"
+  region                        = "${var.region}"
+  vpc_id                        = "${var.vpc_id != "" ? var.vpc_id : module.vpc.vpc_id}"
+  private_subnets               = "${var.k8s_private_subnets}"
+  public_subnets                = "${var.k8s_public_subnets}"
+  desired_worker_nodes          = "${var.k8s_node_count}"
+  worker_node_instance_type     = "${var.k8s_node_instance_type}"
+  key_name                      = "${var.k8s_aws_ssh_keypair_name}"
+  enable_cluster_autoscaling    = "${var.k8s_enable_cluster_autoscaling}"
+  enable_pod_autoscaling        = "${var.k8s_enable_pod_autoscaling}"
+  protect_cluster_from_scale_in = "${var.k8s_protect_cluster_from_scale_in}"
+  install_helm                  = "${var.k8s_install_helm}"
+  allowed_worker_ssh_cidrs      = "${var.k8s_allowed_worker_ssh_cidrs}"
 
   tags = "${local.common_tags}"
 }
