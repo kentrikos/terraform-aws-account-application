@@ -117,3 +117,9 @@ variable "k8s_allowed_worker_ssh_cidrs" {
   type        = "list"
   default     = []
 }
+
+variable "k8s_allowed_worker_nodeport_cidrs" {
+  description = "List of CIDR ranges allowed to connect to services exposed with NodePort in the cluster that are deployed by the module"
+  type        = "list"
+  default     = []
+}

@@ -47,6 +47,7 @@ module "kubernetes_cluster_application" {
   protect_cluster_from_scale_in = "${var.k8s_protect_cluster_from_scale_in}"
   install_helm                  = "${var.k8s_install_helm}"
   allowed_worker_ssh_cidrs      = "${var.k8s_allowed_worker_ssh_cidrs}"
+  allowed_worker_nodeport_cidrs = "${var.k8s_allowed_worker_nodeport_cidrs}"
 
   tags = "${local.common_tags}"
 }
