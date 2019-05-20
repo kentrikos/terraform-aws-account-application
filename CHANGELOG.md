@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.3] - 2019-05-20
+### Added
+- Support for deploying Kubernetes ingress controller
+
 ## [0.4.2] - 2019-05-08
 ### Added
 - Added outputs from eks module
