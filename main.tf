@@ -32,7 +32,7 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-eks?ref=2.0.1"
+  source = "github.com/kentrikos/terraform-aws-eks?ref=2.1.0"
 
   cluster_prefix                = "${local.cluster_name}"
   region                        = "${var.region}"
@@ -46,7 +46,9 @@ module "kubernetes_cluster_application" {
   enable_pod_autoscaling        = "${var.k8s_enable_pod_autoscaling}"
   protect_cluster_from_scale_in = "${var.k8s_protect_cluster_from_scale_in}"
   install_helm                  = "${var.k8s_install_helm}"
+  ingress_deploy                = "${var.k8s_ingress_deploy}"
   allowed_worker_ssh_cidrs      = "${var.k8s_allowed_worker_ssh_cidrs}"
+  allowed_worker_nodeport_cidrs = "${var.k8s_allowed_worker_nodeport_cidrs}"
 
   tags = "${local.common_tags}"
 }

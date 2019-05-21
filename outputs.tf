@@ -57,3 +57,8 @@ output "worker_iam_role_arn" {
   description = "default IAM role ARN for EKS worker groups"
   value       = "${module.kubernetes_cluster_application.worker_iam_role_arn}"
 }
+
+output "ingress_service_nodeport_http" {
+  description = "Port number for ingress"
+  value       = "${module.kubernetes_cluster_application.ingress_service_nodeport_http}"
+}
