@@ -11,7 +11,8 @@ locals {
 
 # VPC for Kubernetes cluster:
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~> 1.66"
 
   create_vpc = "${var.vpc_id != "" ? false : true}"
 
