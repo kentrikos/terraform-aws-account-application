@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2019-06-07
+### Changed
+- Disable default ingress deployment
+
 ## [0.5.1] - 2019-05-27
 ### Fixed
 - Pin vpc module version to ~> 1.66 because is terraform 0.11 compatible 
