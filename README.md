@@ -43,7 +43,7 @@ module "application" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | azs | Availability Zones for the cluster (1 master per AZ will be deployed) | list | n/a | yes |
-| enable\_default\_roles | Enable creation of default roles to assume | string | `"false"` | no |
+| enable\_default\_roles | Enable creation of default roles to assume | string | `"true"` | no |
 | environment\_type | Type of environment (e.g. test, int, e2e, prod) | string | n/a | yes |
 | iam\_cross\_account\_role\_arn | Cross-account role to assume before deploying the cluster | string | n/a | yes |
 | k8s\_allowed\_worker\_nodeport\_cidrs | List of CIDR ranges allowed to connect to services exposed with NodePort in the cluster that are deployed by the module | list | `<list>` | no |
