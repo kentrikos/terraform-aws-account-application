@@ -33,7 +33,7 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-eks?ref=2.1.0"
+  source = "github.com/kentrikos/terraform-aws-eks?ref=adding_roles"
 
   cluster_prefix                = "${local.cluster_name}"
   region                        = "${var.region}"
@@ -50,6 +50,14 @@ module "kubernetes_cluster_application" {
   ingress_deploy                = "${var.k8s_ingress_deploy}"
   allowed_worker_ssh_cidrs      = "${var.k8s_allowed_worker_ssh_cidrs}"
   allowed_worker_nodeport_cidrs = "${var.k8s_allowed_worker_nodeport_cidrs}"
+
+  map_roles            = "${var.map_roles}"
+  map_roles_count      = "${var.map_roles_count}"
+  map_users            = "${var.map_users}"
+  map_users_count      = "${var.map_users_count}"
+  map_accounts         = "${var.map_accounts}"
+  map_accounts_count   = "${var.map_accounts_count}"
+  enable_default_roles = "${var.enable_default_roles}"
 
   tags = "${local.common_tags}"
 }
