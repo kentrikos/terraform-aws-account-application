@@ -33,7 +33,7 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-eks?ref=adding_roles"
+  source = "github.com/kentrikos/terraform-aws-eks?ref=2.2.0"
 
   cluster_prefix                = "${local.cluster_name}"
   region                        = "${var.region}"
