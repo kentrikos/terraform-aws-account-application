@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2019-07-04
+### Added 
+- Maps for roles, users and account
+- Default roles to assume for EKS
+- Flag enable_default_roles to enable creation of default role; default false 
+
 ## [0.5.1] - 2019-05-27
 ### Fixed
 - Pin vpc module version to ~> 1.66 because is terraform 0.11 compatible 
