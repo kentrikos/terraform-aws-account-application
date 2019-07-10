@@ -17,19 +17,19 @@ variable "new_vpc_cidr" {
 
 variable "new_vpc_private_subnets" {
   description = "(Optional) A list of private subnets expressed in CIDR notation. This list size must match the list size of availability zones."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "new_vpc_public_subnets" {
   description = "(Optional) A list of public subnets expressed in CIDR notation. This list size must match the list size of availability zones."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "new_vpc_elastic_ips" {
   description = "(Optional) A list of existing elastic ip addresses to assign to the VPC"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -39,17 +39,17 @@ variable "region" {
 
 variable "azs" {
   description = "Availability Zones for the cluster (1 master per AZ will be deployed)"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "k8s_private_subnets" {
   description = "List of private subnets (matching AZs) where to deploy the cluster (required if existing VPC is used)"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "k8s_public_subnets" {
   description = "List of public subnets (matching AZs) where to deploy the cluster (required if existing VPC is used)"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -74,12 +74,12 @@ variable "iam_cross_account_role_arn" {
 
 variable "k8s_masters_iam_policies_arns" {
   description = "List of existing IAM policies that will be attached to instance profile for master nodes (EC2 instances)"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "k8s_nodes_iam_policies_arns" {
   description = "List of existing IAM policies that will be attached to instance profile for worker nodes (EC2 instances)"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "k8s_aws_ssh_keypair_name" {
@@ -119,53 +119,36 @@ variable "k8s_ingress_deploy" {
 
 variable "k8s_allowed_worker_ssh_cidrs" {
   description = "List of CIDRs to allow SSH access into the cluster nodes"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "k8s_allowed_worker_nodeport_cidrs" {
   description = "List of CIDR ranges allowed to connect to services exposed with NodePort in the cluster that are deployed by the module"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "map_accounts" {
   description = "Additional AWS account numbers to add to the aws-auth configmap. See terraform-aws-modules-eks examples/basic/variables.tf for example format."
-  type        = "list"
+  type        = list(string)
   default     = []
-}
-
-variable "map_accounts_count" {
-  description = "The count of accounts in the map_accounts list."
-  type        = "string"
-  default     = 0
 }
 
 variable "map_roles" {
   description = "Additional IAM roles to add to the aws-auth configmap. See terraform-aws-modules-eks examples/basic/variables.tf for example format."
-  type        = "list"
+  type        = list(string)
   default     = []
-}
-
-variable "map_roles_count" {
-  description = "The count of roles in the map_roles list."
-  type        = "string"
-  default     = 0
 }
 
 variable "map_users" {
   description = "Additional IAM users to add to the aws-auth configmap. See terraform-aws-modules-eksexamples/basic/variables.tf for example format."
-  type        = "list"
+  type        = list(map(string))
   default     = []
-}
-
-variable "map_users_count" {
-  description = "The count of roles in the map_users list."
-  type        = "string"
-  default     = 0
 }
 
 variable "enable_default_roles" {
   description = "Enable creation of default roles to assume"
   default     = true
 }
+
