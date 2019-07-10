@@ -12,14 +12,14 @@ locals {
 # VPC for Kubernetes cluster:
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 1.66"
+  version = "~> 2.7"
 
   create_vpc = var.vpc_id != "" ? false : true
 
   name = "${var.product_domain_name}-${var.environment_type}"
 
   reuse_nat_ips          = length(var.new_vpc_elastic_ips) == 0 ? false : true
-  external_nat_ip_ids    = [var.new_vpc_elastic_ips]
+  external_nat_ip_ids    = var.new_vpc_elastic_ips
   cidr                   = var.new_vpc_cidr
   azs                    = var.azs
   public_subnets         = var.new_vpc_public_subnets
