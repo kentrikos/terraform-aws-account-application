@@ -56,6 +56,7 @@ module "application" {
 | `k8s_allowed_worker_nodeport_cidrs` | List of CIDR ranges allowed to connect to services exposed with NodePort in the cluster that are deployed by the module | list(string) | n/a |  yes |
 | `k8s_allowed_worker_ssh_cidrs` | List of CIDRs to allow SSH access into the cluster nodes | list(string) | n/a |  yes |
 | `k8s_aws_ssh_keypair_name` | Optional name of existing SSH keypair on AWS account, to be used for cluster instances (will be generated if not specified) | n/a | n/a |  yes |
+| `k8s_cluster_version` | Kubernetes version to use for the EKS cluster | string | `1.13` |  no |
 | `k8s_enable_cluster_autoscaling` | Enable cluster autoscaling (vertical/node scaling) | n/a | `true` |  no |
 | `k8s_enable_pod_autoscaling` | Enable cluster horizontal pod autoscaling | n/a | `true` |  no |
 | `k8s_ingress_deploy` | Deploy Kubernetes Ingress controller on the cluster (requires install_helm=true) | n/a | `true` |  no |

@@ -51,6 +51,8 @@ module "kubernetes_cluster_application" {
   allowed_worker_ssh_cidrs      = var.k8s_allowed_worker_ssh_cidrs
   allowed_worker_nodeport_cidrs = var.k8s_allowed_worker_nodeport_cidrs
 
+  cluster_version = var.k8s_cluster_version
+
   map_roles            = var.map_roles
   map_users            = var.map_users
   map_accounts         = var.map_accounts
