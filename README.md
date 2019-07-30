@@ -8,6 +8,8 @@ Most important elements of the environment:
 
 # Notes
 
+Terraform version  `>= 0.12`
+
 # Usage
 
 ## Create new VPC:
@@ -35,12 +37,9 @@ module "application" {
   k8s_masters_iam_policies_arns    = "${var.k8s_masters_iam_policies_arns}"
   k8s_nodes_iam_policies_arns      = "${var.k8s_nodes_iam_policies_arns}"
 
-  map_roles            = "${var.map_roles}"
-  map_roles_count      = "${var.map_roles_count}"
-  map_users            = "${var.map_users}"
-  map_users_count      = "${var.map_users_count}"
-  map_accounts         = "${var.map_accounts}"
-  map_accounts_count   = "${var.map_accounts_count}"
+  map_roles            = "${var.k8s_map_roles}"
+  map_users            = "${var.k8s_map_users}"
+  map_accounts         = "${var.k8s_map_accounts}"
   enable_default_roles = "${var.enable_default_roles}"
   
 }
@@ -50,57 +49,56 @@ module "application" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| azs | Availability Zones for the cluster (1 master per AZ will be deployed) | list | n/a | yes |
-| enable\_default\_roles | Enable creation of default roles to assume | string | `"true"` | no |
-| environment\_type | Type of environment (e.g. test, int, e2e, prod) | string | n/a | yes |
-| iam\_cross\_account\_role\_arn | Cross-account role to assume before deploying the cluster | string | n/a | yes |
-| k8s\_allowed\_worker\_nodeport\_cidrs | List of CIDR ranges allowed to connect to services exposed with NodePort in the cluster that are deployed by the module | list | `<list>` | no |
-| k8s\_allowed\_worker\_ssh\_cidrs | List of CIDRs to allow SSH access into the cluster nodes | list | `<list>` | no |
-| k8s\_aws\_ssh\_keypair\_name | Optional name of existing SSH keypair on AWS account, to be used for cluster instances (will be generated if not specified) | string | `""` | no |
-| k8s\_enable\_cluster\_autoscaling | Enable cluster autoscaling (vertical/node scaling) | string | `"true"` | no |
-| k8s\_enable\_pod\_autoscaling | Enable cluster horizontal pod autoscaling | string | `"true"` | no |
-| k8s\_ingress\_deploy | Deploy Kubernetes Ingress controller on the cluster (requires install_helm=true) | string | `"true"` | no |
-| k8s\_install\_helm | Install helm in the cluster | string | `"true"` | no |
-| k8s\_linux\_distro | Linux distribution for K8s cluster instances (supported values: debian, amzn2) | string | `"debian"` | no |
-| k8s\_master\_instance\_type | Instance type (size) for master nodes | string | `"m4.large"` | no |
-| k8s\_masters\_iam\_policies\_arns | List of existing IAM policies that will be attached to instance profile for master nodes (EC2 instances) | list | n/a | yes |
-| k8s\_node\_count | Number of worker nodes in Kubernetes cluster | string | `"1"` | no |
-| k8s\_node\_instance\_type | Instance type (size) for worker nodes | string | `"m4.large"` | no |
-| k8s\_nodes\_iam\_policies\_arns | List of existing IAM policies that will be attached to instance profile for worker nodes (EC2 instances) | list | n/a | yes |
-| k8s\_private\_subnets | List of private subnets (matching AZs) where to deploy the cluster (required if existing VPC is used) | list | n/a | yes |
-| k8s\_protect\_cluster\_from\_scale\_in | Protect the cluster from scale-in (Only valid if cluster autoscaling is enabled) | string | `"false"` | no |
-| k8s\_public\_subnets | List of public subnets (matching AZs) where to deploy the cluster (required if existing VPC is used) | list | `<list>` | no |
-| map\_accounts | Additional AWS account numbers to add to the aws-auth configmap. See terraform-aws-modules-eks examples/basic/variables.tf for example format. | list | `<list>` | no |
-| map\_accounts\_count | The count of accounts in the map_accounts list. | string | `"0"` | no |
-| map\_roles | Additional IAM roles to add to the aws-auth configmap. See terraform-aws-modules-eks examples/basic/variables.tf for example format. | list | `<list>` | no |
-| map\_roles\_count | The count of roles in the map_roles list. | string | `"0"` | no |
-| map\_users | Additional IAM users to add to the aws-auth configmap. See terraform-aws-modules-eksexamples/basic/variables.tf for example format. | list | `<list>` | no |
-| map\_users\_count | The count of roles in the map_users list. | string | `"0"` | no |
-| new\_vpc\_cidr | CIDR range for VPC. | string | `""` | no |
-| new\_vpc\_elastic\_ips | (Optional) A list of existing elastic ip addresses to assign to the VPC | list | `<list>` | no |
-| new\_vpc\_private\_subnets | (Optional) A list of private subnets expressed in CIDR notation. This list size must match the list size of availability zones. | list | `<list>` | no |
-| new\_vpc\_public\_subnets | (Optional) A list of public subnets expressed in CIDR notation. This list size must match the list size of availability zones. | list | `<list>` | no |
-| product\_domain\_name | Name of product domain (e.g. maps) | string | n/a | yes |
-| region | AWS region | string | n/a | yes |
-| vpc\_id | ID of existing VPC where cluster will be deployed (if not specified new VPC will be created | string | n/a | yes |
+| `azs` | Availability Zones for the cluster (1 master per AZ will be deployed) | list(string) | n/a |  yes |
+| `enable_default_roles` | Enable creation of default roles to assume | n/a | `true` |  no |
+| `environment_type` | Type of environment (e.g. test, int, e2e, prod) | n/a | n/a |  yes |
+| `iam_cross_account_role_arn` | Cross-account role to assume before deploying the cluster | n/a | n/a |  yes |
+| `k8s_allowed_worker_nodeport_cidrs` | List of CIDR ranges allowed to connect to services exposed with NodePort in the cluster that are deployed by the module | list(string) | n/a |  yes |
+| `k8s_allowed_worker_ssh_cidrs` | List of CIDRs to allow SSH access into the cluster nodes | list(string) | n/a |  yes |
+| `k8s_aws_ssh_keypair_name` | Optional name of existing SSH keypair on AWS account, to be used for cluster instances (will be generated if not specified) | n/a | n/a |  yes |
+| `k8s_cluster_version` | Kubernetes version to use for the EKS cluster | string | `1.13` |  no |
+| `k8s_enable_cluster_autoscaling` | Enable cluster autoscaling (vertical/node scaling) | n/a | `true` |  no |
+| `k8s_enable_pod_autoscaling` | Enable cluster horizontal pod autoscaling | n/a | `true` |  no |
+| `k8s_ingress_deploy` | Deploy Kubernetes Ingress controller on the cluster (requires install_helm=true) | n/a | `true` |  no |
+| `k8s_install_helm` | Install helm in the cluster | n/a | `true` |  no |
+| `k8s_linux_distro` | Linux distribution for K8s cluster instances (supported values: debian, amzn2) | n/a | `"debian"` |  no |
+| `k8s_master_instance_type` | Instance type (size) for master nodes | n/a | `"m4.large"` |  no |
+| `k8s_masters_iam_policies_arns` | List of existing IAM policies that will be attached to instance profile for master nodes (EC2 instances) | list(string) | n/a |  yes |
+| `k8s_node_count` | Number of worker nodes in Kubernetes cluster | n/a | `"1"` |  no |
+| `k8s_node_instance_type` | Instance type (size) for worker nodes | n/a | `"m4.large"` |  no |
+| `k8s_nodes_iam_policies_arns` | List of existing IAM policies that will be attached to instance profile for worker nodes (EC2 instances) | list(string) | n/a |  yes |
+| `k8s_private_subnets` | List of private subnets (matching AZs) where to deploy the cluster (required if existing VPC is used) | list(string) | n/a |  yes |
+| `k8s_protect_cluster_from_scale_in` | Protect the cluster from scale-in (Only valid if cluster autoscaling is enabled) | n/a | n/a |  yes |
+| `k8s_public_subnets` | List of public subnets (matching AZs) where to deploy the cluster (required if existing VPC is used) | list(string) | n/a |  yes |
+| `map_accounts` | Additional AWS account numbers to add to the aws-auth configmap. See terraform-aws-modules-eks examples/basic/variables.tf for example format. | list(string) | n/a |  yes |
+| `map_roles` | Additional IAM roles to add to the aws-auth configmap. See terraform-aws-modules-eks examples/basic/variables.tf for example format. | list(map(string)) | n/a |  yes |
+| `map_users` | Additional IAM users to add to the aws-auth configmap. See terraform-aws-modules-eks examples/basic/variables.tf for example format. | list(map(string)) | n/a |  yes |
+| `new_vpc_cidr` | CIDR range for VPC. | n/a | n/a |  yes |
+| `new_vpc_elastic_ips` | (Optional) A list of existing elastic ip addresses to assign to the VPC | list(string) | n/a |  yes |
+| `new_vpc_private_subnets` | (Optional) A list of private subnets expressed in CIDR notation. This list size must match the list size of availability zones. | list(string) | n/a |  yes |
+| `new_vpc_public_subnets` | (Optional) A list of public subnets expressed in CIDR notation. This list size must match the list size of availability zones. | list(string) | n/a |  yes |
+| `product_domain_name` | Name of product domain (e.g. maps) | n/a | n/a |  yes |
+| `region` | AWS region | n/a | n/a |  yes |
+| `vpc_id` | ID of existing VPC where cluster will be deployed (if not specified new VPC will be created | n/a | n/a |  yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| cluster\_certificate\_authority\_data | Nested attribute containing certificate-authority-data for your cluster. This is the base64 encoded certificate data required to communicate with your cluster. |
-| cluster\_endpoint | Endpoint for EKS control plane. |
-| cluster\_id | Name of the EKS cluster |
-| cluster\_roles | Cluster roles to assueme for EKS |
-| cluster\_security\_group\_id | Security group ID attached to the EKS cluster. |
-| cluster\_version | The Kubernetes server version for the EKS cluster. |
-| config\_map\_aws\_auth |  |
-| ingress\_service\_nodeport\_http | Port number for ingress |
-| kubeconfig | kubectl config as generated by the module. |
-| worker\_iam\_role\_arn | default IAM role ARN for EKS worker groups |
-| worker\_iam\_role\_name | default IAM role name for EKS worker groups |
-| worker\_security\_group\_id | Security group ID attached to the EKS workers. |
-| workers\_asg\_arns | IDs of the autoscaling groups containing workers. |
-| workers\_asg\_names | Names of the autoscaling groups containing workers. |
+| `cluster_certificate_authority_data` | Nested attribute containing certificate-authority-data for your cluster. This is the base64 encoded certificate data required to communicate with your cluster. |
+| `cluster_endpoint` | Endpoint for EKS control plane. |
+| `cluster_id` | Name of the EKS cluster |
+| `cluster_roles` | Cluster roles to assueme for EKS |
+| `cluster_security_group_id` | Security group ID attached to the EKS cluster. |
+| `cluster_version` | The Kubernetes server version for the EKS cluster. |
+| `config_map_aws_auth` | n/a |
+| `ingress_service_nodeport_http` | Port number for ingress |
+| `kubeconfig` | kubectl config as generated by the module. |
+| `worker_iam_role_arn` | default IAM role ARN for EKS worker groups |
+| `worker_iam_role_name` | default IAM role name for EKS worker groups |
+| `worker_security_group_id` | Security group ID attached to the EKS workers. |
+| `workers_asg_arns` | IDs of the autoscaling groups containing workers. |
+| `workers_asg_names` | Names of the autoscaling groups containing workers. |
+
 
 
