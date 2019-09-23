@@ -158,3 +158,7 @@ variable "enable_default_roles" {
   default     = true
 }
 
+variable "ingress_helm_values" {
+  default     = {}
+  description = "For helm ingress chart values in k => v map"
+}

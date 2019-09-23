@@ -33,7 +33,7 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-eks?ref=3.0.0"
+  source = "github.com/kentrikos/terraform-aws-eks?ref=ingress_upgrade"
 
   cluster_prefix                = local.cluster_name
   region                        = var.region
@@ -57,6 +57,8 @@ module "kubernetes_cluster_application" {
   map_users            = var.map_users
   map_accounts         = var.map_accounts
   enable_default_roles = var.enable_default_roles
+
+  ingress_helm_values = var.ingress_helm_values
 
   tags = local.common_tags
 }
