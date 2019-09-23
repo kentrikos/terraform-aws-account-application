@@ -170,3 +170,8 @@ variable "ingress_helm_values" {
   default     = {}
   description = "For helm ingress chart values in k => v map"
 }
+
+variable "ingress_service_type" {
+  description = "Type of ingress controller service to create"
+  default     = "NodePort"
+}

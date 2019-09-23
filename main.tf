@@ -58,7 +58,9 @@ module "kubernetes_cluster_application" {
   map_accounts         = var.map_accounts
   enable_default_roles = var.enable_default_roles
 
-  ingress_helm_values = var.ingress_helm_values
+  ingress_helm_values  = var.ingress_helm_values
+  ingress_service_type = var.ingress_service_type
+
 
   tags = local.common_tags
 }
