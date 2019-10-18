@@ -53,10 +53,14 @@ module "application" {
 | `enable_default_roles` | Enable creation of default roles to assume | n/a | `true` |  no |
 | `environment_type` | Type of environment (e.g. test, int, e2e, prod) | n/a | n/a |  yes |
 | `iam_cross_account_role_arn` | Cross-account role to assume before deploying the cluster | n/a | n/a |  yes |
+| `ingress_helm_values` | For helm ingress chart values in k => v map | n/a | n/a |  yes |
+| `ingress_service_type` | Type of ingress controller service to create | n/a | `"NodePort"` |  no |
 | `k8s_allowed_worker_nodeport_cidrs` | List of CIDR ranges allowed to connect to services exposed with NodePort in the cluster that are deployed by the module | list(string) | n/a |  yes |
 | `k8s_allowed_worker_ssh_cidrs` | List of CIDRs to allow SSH access into the cluster nodes | list(string) | n/a |  yes |
 | `k8s_aws_ssh_keypair_name` | Optional name of existing SSH keypair on AWS account, to be used for cluster instances (will be generated if not specified) | n/a | n/a |  yes |
-| `k8s_cluster_version` | Kubernetes version to use for the EKS cluster | string | `1.13` |  no |
+| `k8s_cluster_enabled_log_types` | A list of the desired control plane logging to enable. [api,audit,authenticator,controllerManager,scheduler] For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) | list(string) | n/a |  yes |
+| `k8s_cluster_log_retention_in_days` | Number of days to retain log events. Default retention - 90 days. | number | `90` |  no |
+| `k8s_cluster_version` | Kubernetes version to use for the EKS cluster. | string | `"1.13"` |  no |
 | `k8s_enable_cluster_autoscaling` | Enable cluster autoscaling (vertical/node scaling) | n/a | `true` |  no |
 | `k8s_enable_pod_autoscaling` | Enable cluster horizontal pod autoscaling | n/a | `true` |  no |
 | `k8s_ingress_deploy` | Deploy Kubernetes Ingress controller on the cluster (requires install_helm=true) | n/a | `true` |  no |
