@@ -53,6 +53,9 @@ module "kubernetes_cluster_application" {
 
   cluster_version = var.k8s_cluster_version
 
+  node_groups_defaults = var.node_groups_defaults
+  node_groups          = var.node_groups
+
   map_roles            = var.map_roles
   map_users            = var.map_users
   map_accounts         = var.map_accounts
